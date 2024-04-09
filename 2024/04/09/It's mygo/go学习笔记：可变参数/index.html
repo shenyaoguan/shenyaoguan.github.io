@@ -1,0 +1,137 @@
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content=大家好我是shenyaoguan,欢迎来到我的博客 >
+  <meta name="keywords" content=hexo,theme,MiHoYo >
+
+  <head>
+    <title>
+      go学习笔记：可变参数 [ Hexo ]
+    </title>
+  <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+  <body>
+
+    <link rel="stylesheet" href="/css/header.css">
+<div class="header">
+  <div class="logo">
+    <span class="pull-left">
+      <a id="site-name" href="/">
+        shenyaoguan&#39;s blog
+      </a>
+    </span>
+  </div>
+  <ul class="nav-list">
+    
+      <li>
+        <a href="/">
+          首页
+        </a>
+      </li>
+      
+      <li>
+        <a href="/about">
+          关于
+        </a>
+      </li>
+      
+  </ul>
+</div>
+
+      <!--<link rel="stylesheet" href="/css/top-header.css">
+<div id="top-bar" class="fixed">
+
+  <a class="goto-top" href="#"></a>
+  <ul class="bar-list bar-list-1">
+    
+      <li>
+        <p>
+          <a href="/">
+            <text class="bar-text bar-p1">
+              首页
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          <a href="/about">
+            <text class="bar-text bar-p1">
+              关于
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+  </ul>
+</div>-->
+
+        <div id="content-outer">
+          <div class="content-inner">
+            <link rel="stylesheet" href="/css/post.css">
+<div class="posts">
+  <a href="/index.html"><i class="fa fa-home
+replay-btn" aria-hidden="true"></i></a>
+  <div class="post-title">
+    <p>
+      go学习笔记：可变参数
+    </p>
+    <hr>
+  </div>
+  <div class="post-content">
+    <h3 id="可变参数的函数"><a href="#可变参数的函数" class="headerlink" title="可变参数的函数"></a>可变参数的函数</h3><p>这一节主要是研究参数数量可变的函数，比如fmt.Printf</p>
+<p>在声明可变参数函数时，需要在最后一个参数类型前加上省略号，以表示该函数可以接受任意数量的该类型参数.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(vals ...<span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    total := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _, val := <span class="keyword">range</span> vals &#123;</span><br><span class="line">        total += val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>sum函数就可以返回任意歌int型参数的和</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(sum())           <span class="comment">// &quot;0&quot;</span></span><br><span class="line">fmt.Println(sum(<span class="number">3</span>))          <span class="comment">// &quot;3&quot;</span></span><br><span class="line">fmt.Println(sum(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)) <span class="comment">// &quot;10&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上边的代码中，调用者隐式的创建一个数组，再把数组的一个切片，作为参数传给被调用函数。 如果函数已经是切片类型的，我们应该在最后一个参数后加上省略符。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">values := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">fmt.Println(sum(values...)) <span class="comment">// &quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中要注意，虽然…int型参数的行为像切片类型，但是其实不同</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(...<span class="type">int</span>)</span></span> &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">g</span><span class="params">([]<span class="type">int</span>)</span></span> &#123;&#125;</span><br><span class="line">fmt.Printf(<span class="string">&quot;%T\n&quot;</span>, f) <span class="comment">// &quot;func(...int)&quot;</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;%T\n&quot;</span>, g) <span class="comment">// &quot;func([]int)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，可变阐述经常用于格式化字符串，比如下面的errorf函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">errorf</span><span class="params">(linenum <span class="type">int</span>, format <span class="type">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    fmt.Fprintf(os.Stderr, <span class="string">&quot;Line %d: &quot;</span>, linenum)</span><br><span class="line">    fmt.Fprintf(os.Stderr, format, args...)</span><br><span class="line">    fmt.Fprintln(os.Stderr)</span><br><span class="line">&#125;</span><br><span class="line">linenum, name := <span class="number">12</span>, <span class="string">&quot;count&quot;</span></span><br><span class="line">errorf(linenum, <span class="string">&quot;undefined: %s&quot;</span>, name) <span class="comment">// &quot;Line 12: undefined: count&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+</div>
+          </div>
+        </div>
+
+        <link rel="stylesheet" href="/css/footer.css">
+<div class="bottom-outer">
+  <div class="copyright">©2021 - 2021 By Tanger</div>
+  <div class="framework-info">
+    <span>Power by</span>
+    <a class="a1" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>Theme by</span>
+    <a class="a2" target="_blank" rel="noopener" href="https://github.com/redhat123456/hexo-theme-MiHoYo">MiHoYo</a>
+  </div>
+</div>
+
+          
+            <!-- scripts list from theme config.yml -->
+            
+              <script src="/js/MiHoYo.js"></script>
+              
+                
+
+  </body>
+
+  </html>
