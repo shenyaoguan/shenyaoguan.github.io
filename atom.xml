@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-04-09T08:32:11.738Z</updated>
+  <updated>2024-04-16T14:26:42.223Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,88 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>拉康研讨班阅读笔记：《The Object Relation》</title>
+    <link href="http://example.com/2024/04/16/psychoanalysis/%E7%AC%AC%E5%9B%9B%E6%9C%9F%E7%A0%94%E8%AE%A8%E7%8F%AD/"/>
+    <id>http://example.com/2024/04/16/psychoanalysis/%E7%AC%AC%E5%9B%9B%E6%9C%9F%E7%A0%94%E8%AE%A8%E7%8F%AD/</id>
+    <published>2024-04-16T14:23:16.733Z</published>
+    <updated>2024-04-16T14:26:42.223Z</updated>
+    
+    
+    
+    
+    
+    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go学习笔记：Recover捕获异常</title>
+    <link href="http://example.com/2024/04/16/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/"/>
+    <id>http://example.com/2024/04/16/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/</id>
+    <published>2024-04-16T08:44:50.398Z</published>
+    <updated>2024-04-16T08:45:51.821Z</updated>
+    
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>shell的简单学习</title>
+    <link href="http://example.com/2024/04/11/os/shell%20%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2024/04/11/os/shell%20%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/</id>
+    <published>2024-04-11T08:21:35.843Z</published>
+    <updated>2024-04-12T07:12:39.677Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">your_name=&quot;runoob&quot;</span><br></pre></td></tr></table></figure><p>变量的规则与常见脚本语言相似。</p><p><strong>注意</strong>：‘&#x3D;’两边不要出现空格，否则容易出bug</p><p>其次，可以用语句隐式赋值</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for file in &#x27;ls /etc&#x27;</span><br><span class="line">或</span><br><span class="line">for file in $(ls /etc)</span><br></pre></td></tr></table></figure><h2 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">your_name=&quot;haha&quot;</span><br><span class="line">echo $your_name</span><br><span class="line">echo $(your_name)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;变量&quot;&gt;&lt;a href=&quot;#变量&quot; class=&quot;headerlink&quot; title=&quot;变量&quot;&gt;&lt;/a&gt;变量&lt;/h2&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span </summary>
+      
+    
+    
+    
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="shell" scheme="http://example.com/tags/shell/"/>
+    
+    <category term="os" scheme="http://example.com/tags/os/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go学习笔记：Panic异常</title>
+    <link href="http://example.com/2024/04/11/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/"/>
+    <id>http://example.com/2024/04/11/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/</id>
+    <published>2024-04-11T07:41:03.208Z</published>
+    <updated>2024-04-16T08:44:43.171Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="panic简介"><a href="#panic简介" class="headerlink" title="panic简介"></a>panic简介</h5><p>这里的Panic与前面的错误err不同。这里的Panic常常是在运行中出现的，且常常会导致整个程序崩溃。</p><p>一般而言，panic发生时，程序会中断运行，并立刻执行goroutine中被延迟的函数。</p><p>其中，并不是所有的panic异常都来自运行是，直接调用内置的panic函数也会引发panic异常; panic函数接受任何值作为参数。这里可以作为一个排除一切的选项来阻止不应该出现的场景蔓延。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> s := suit(drawCard()); s &#123;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;Spades&quot;</span>:                                <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;Hearts&quot;</span>:                                <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;Diamonds&quot;</span>:                              <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;Clubs&quot;</span>:                                 <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;invalid suit %q&quot;</span>, s)) <span class="comment">// Joker?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但是建议调用panic函数时要设置合理的前置条件，否则容易滥用。如下面的代码</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Reset</span><span class="params">(x *Buffer)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">&quot;x is nil&quot;</span>) <span class="comment">// unnecessary!</span></span><br><span class="line">    &#125;</span><br><span class="line">    x.elements = <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>regexp.Compile函数的功能是将正则表达式编译成有效的函数，如果正则表达式不合法，那么该函数会返回一个错误。其中检查这个错误是不必要且累赘的，</p><p>这是如果我们希望调用Compile函数时检查输入的合法性，就需要使用regexp.MustCompile函数。下面是该函数的实现</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> regexp</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Compile</span><span class="params">(expr <span class="type">string</span>)</span></span> (*Regexp, <span class="type">error</span>) &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MustCompile</span><span class="params">(expr <span class="type">string</span>)</span></span> *Regexp &#123;</span><br><span class="line">    re, err := Compile(expr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> re</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>显然，MustCompile函数不能接受不合法的输入，其中函数名的Must前缀是一种对这类函数的约定，比如template.Must函数。</p><h5 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h5><p>让我们看下面一串代码</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(x <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;f(%d)\n&quot;</span>, x+<span class="number">0</span>/x) <span class="comment">// panics if x == 0</span></span><br><span class="line">    <span class="keyword">defer</span> fmt.Printf(<span class="string">&quot;defer %d\n&quot;</span>, x)</span><br><span class="line">    f(x - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>输出为</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f(3)</span><br><span class="line">f(2)</span><br><span class="line">f(1)</span><br><span class="line">defer 1</span><br><span class="line">defer 2</span><br><span class="line">defer 3</span><br></pre></td></tr></table></figure><p>当f(0)被调用时，发生了panic异常，之前被defer的fmt.Printf被调用，程序中断执行后，panic信息和堆栈信息被输出。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">goroutine 1 [running]:</span><br><span class="line">main.f(0x4be858?)</span><br><span class="line">        /home/shenyaoguan/Code/gin_study/ch5/test.go:10 +0x118</span><br><span class="line">main.f(0x1)</span><br><span class="line">        /home/shenyaoguan/Code/gin_study/ch5/test.go:12 +0xfe</span><br><span class="line">main.f(0x2)</span><br><span class="line">        /home/shenyaoguan/Code/gin_study/ch5/test.go:12 +0xfe</span><br><span class="line">main.f(0x3)</span><br><span class="line">        /home/shenyaoguan/Code/gin_study/ch5/test.go:12 +0xfe</span><br><span class="line">main.main()</span><br><span class="line">        /home/shenyaoguan/Code/gin_study/ch5/test.go:6 +0x18</span><br></pre></td></tr></table></figure><p>我们在下一节将看到，如何是程序从panic中恢复，阻止程序崩溃</p><h5 id="panic信息返回"><a href="#panic信息返回" class="headerlink" title="panic信息返回"></a>panic信息返回</h5><p>为了方便诊断问题，runtime包允许程序员输出堆栈信息，在下面例子中，我们可以通过runtime函数来调用printStack输出信息</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> printStack()</span><br><span class="line">    f(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printStack</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> buf [<span class="number">4096</span>]<span class="type">byte</span></span><br><span class="line">    n := runtime.Stack(buf[:], <span class="literal">false</span>)</span><br><span class="line">    os.Stdout.Write(buf[:n])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这时候要注意，在调试模式下可以看到，printStack先运行，再运行报错</p><p>若将panic机制类比为其他语言异常机制，则会出现疑问，runtime.Stack为何能输出已经被释放函数的星系？事实上，Go的panic机制中，延迟函数的调用是在释放堆栈信息前的</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h5 id=&quot;panic简介&quot;&gt;&lt;a href=&quot;#panic简介&quot; class=&quot;headerlink&quot; title=&quot;panic简介&quot;&gt;&lt;/a&gt;panic简介&lt;/h5&gt;&lt;p&gt;这里的Panic与前面的错误err不同。这里的Panic常常是在运行中出现的，且常常会导致整个程序崩</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>go学习笔记：Deferred函数</title>
@@ -55,19 +137,6 @@
     <summary type="html">&lt;h3 id=&quot;可变参数的函数&quot;&gt;&lt;a href=&quot;#可变参数的函数&quot; class=&quot;headerlink&quot; title=&quot;可变参数的函数&quot;&gt;&lt;/a&gt;可变参数的函数&lt;/h3&gt;&lt;p&gt;这一节主要是研究参数数量可变的函数，比如fmt.Printf&lt;/p&gt;
 &lt;p&gt;在声明可变参数函数时，需</summary>
       
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2024/04/08/%E6%9C%AA%E5%91%BD%E5%90%8D/"/>
-    <id>http://example.com/2024/04/08/%E6%9C%AA%E5%91%BD%E5%90%8D/</id>
-    <published>2024-04-08T11:23:05.842Z</published>
-    <updated>2024-04-08T11:23:05.842Z</updated>
-    
     
     
     
