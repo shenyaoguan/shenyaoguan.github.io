@@ -90,7 +90,13 @@ replay-btn" aria-hidden="true"></i></a>
     <hr>
   </div>
   <div class="post-content">
-    
+    <h5 id="与Panic的关系"><a href="#与Panic的关系" class="headerlink" title="与Panic的关系"></a>与Panic的关系</h5><p>通常来说，不应当处理Panic异常，但是有时候，我们需要在异常中恢复，或者在崩溃前做一些必要的操作。比如，当web服务器遇到未被预料的问题时，在崩溃前应当将所有连接关闭；如果不做任何处理，会使客户端一直处于等待状态，如果web服务器属于开发状态，我们甚至可以将异常信息反馈到客户端，帮助调试。</p>
+<p>如果在deferred函数中调用了内置函数recover，并且定义该defer语句的函数发生了panic异常，recover会使程序从panic中<strong>恢复</strong>，并返回<strong>panic value</strong>。这将导致panic异常的函数不会继续运行，但是能正常返回</p>
+<p>我们以下面这段代码为例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Parse</span><span class="params">(input <span class="type">string</span>)</span></span> (s *Syntax, err <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> p := <span class="built_in">recover</span>(); p != <span class="literal">nil</span> &#123;</span><br><span class="line">            err = fmt.Errorf(<span class="string">&quot;internal error: %v&quot;</span>, p)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="comment">// ...parser...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的recover()帮助Parse从Panic中恢复。我们使用err变量接收错误信息，返回给调用者</p>
+<p><strong>注意：</strong> 不要随意recover别人的panic,也不应该试图恢复其他包引起的panic，否则很可能遗留漏洞</p>
+
   </div>
   
 </div>
