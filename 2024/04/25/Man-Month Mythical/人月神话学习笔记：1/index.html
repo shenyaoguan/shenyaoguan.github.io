@@ -11,7 +11,7 @@
 
   <head>
     <title>
-      Tag: golang [ Hexo ]
+      人月神话学习笔记： [ Hexo ]
     </title>
   <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 </head>
@@ -79,61 +79,61 @@
 
         <div id="content-outer">
           <div class="content-inner">
-            
-<div id="tag">
-  <h1>golang</h1>
-  
-    <div class="tag-item">
-      <a href="/2024/05/07/It&#39;s%20mygo!!!!!/go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E5%BD%A2%E5%BC%8F/">
-        go 面向对象编程的实现
-      </a>
-      <time datetime="2024-05-07T07:41:20.062Z">
-        2024-05-07
-      </time>
-    </div>
-  
-    <div class="tag-item">
-      <a href="/2024/05/07/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%96%B9%E6%B3%95/">
-        go学习笔记：方法
-      </a>
-      <time datetime="2024-05-07T06:30:01.994Z">
-        2024-05-07
-      </time>
-    </div>
-  
-    <div class="tag-item">
-      <a href="/2024/04/16/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/">
-        go学习笔记：Recover捕获异常
-      </a>
-      <time datetime="2024-04-16T08:44:50.398Z">
-        2024-04-16
-      </time>
-    </div>
-  
-    <div class="tag-item">
-      <a href="/2024/04/11/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/">
-        go学习笔记：Panic异常
-      </a>
-      <time datetime="2024-04-11T07:41:03.208Z">
-        2024-04-11
-      </time>
-    </div>
-  
-    <div class="tag-item">
-      <a href="/2024/04/09/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADeferred%E5%87%BD%E6%95%B0/">
-        go学习笔记：Deferred函数
-      </a>
-      <time datetime="2024-04-09T07:53:51.143Z">
-        2024-04-09
-      </time>
-    </div>
+            <link rel="stylesheet" href="/css/post.css">
+<div class="posts">
+  <a href="/index.html"><i class="fa fa-home
+replay-btn" aria-hidden="true"></i></a>
+  <div class="post-title">
+    <p>
+      人月神话学习笔记：
+    </p>
+    <hr>
+  </div>
+  <div class="post-content">
+    <p>书本写作的起因： OS&#x2F;360的失败</p>
+<p>对于软件开发的比喻：焦油坑</p>
+<h3 id="编程系统产品"><a href="#编程系统产品" class="headerlink" title="编程系统产品"></a>编程系统产品</h3><p>产业化队伍和两人组合产出的差别</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编程</td>
+<td>编程系统<br>(接口，系统集成)</td>
+</tr>
+<tr>
+<td>编程产品<br>（通用化，<br>    测试，<br>    文档,<br>     维护）</td>
+<td>编程系统产品</td>
+</tr>
+</tbody></table>
+<p>上面这个四宫格可以清晰的指出普通的程序和真正被现在的社会所需求的产品的区别</p>
+<ul>
+<li><strong>编程产品</strong>： 对用户来说需要考虑可复制性和兼容性，对维护人员来说需要考虑可理解性。这些需要的不只是程序本身，还需要大量的测试和文档，来保证其实现。<strong>成本比其中的程序至少高出3倍</strong></li>
+<li><strong>编程系统</strong>： 需要将程序变成一个构建单元。其中要具有可拓展性和可实现性。必须考虑预先预定的资源限制。同时要考虑不能与其他一些构建单元所冲突，在高复杂度的情况下任然保持健壮。</li>
+</ul>
+<p>而将上述两者结合起来的<strong>编程系统产品</strong>，才是大多数时候，我们的目标</p>
+<h3 id="作为劳动的乐趣"><a href="#作为劳动的乐趣" class="headerlink" title="作为劳动的乐趣"></a>作为劳动的乐趣</h3><blockquote>
+<p>一种创建实物的乐趣</p>
+</blockquote>
+<ol>
+<li>编程中<strong>劳动</strong>的乐趣</li>
+<li>编程中<strong>为他人服务</strong>的乐趣</li>
+<li>编程中<strong>体系建构</strong>的乐趣</li>
+<li>编程中<strong>持续学习</strong>的乐趣</li>
+<li>编程中<strong>容易实现</strong>的乐趣</li>
+</ol>
+<h3 id="作为职业的烦恼"><a href="#作为职业的烦恼" class="headerlink" title="作为职业的烦恼"></a>作为职业的烦恼</h3><ol>
+<li>追求完美时的苦恼（这个也可以作为一种乐趣吧）</li>
+<li>有他人参与的苦恼</li>
+<li></li>
+</ol>
+
+  </div>
   
 </div>
-
-<div id="paginator">
-  <span class="page-number current">1</span>
-</div>
-
           </div>
         </div>
 

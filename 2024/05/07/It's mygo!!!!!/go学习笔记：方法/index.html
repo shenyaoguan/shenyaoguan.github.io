@@ -1,0 +1,136 @@
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content=大家好我是shenyaoguan,欢迎来到我的博客 >
+  <meta name="keywords" content=hexo,theme,MiHoYo >
+
+  <head>
+    <title>
+      go学习笔记：方法 [ Hexo ]
+    </title>
+  <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+  <body>
+
+    <link rel="stylesheet" href="/css/header.css">
+<div class="header">
+  <div class="logo">
+    <span class="pull-left">
+      <a id="site-name" href="/">
+        shenyaoguan&#39;s blog
+      </a>
+    </span>
+  </div>
+  <ul class="nav-list">
+    
+      <li>
+        <a href="/">
+          首页
+        </a>
+      </li>
+      
+      <li>
+        <a href="/about">
+          关于
+        </a>
+      </li>
+      
+  </ul>
+</div>
+
+      <!--<link rel="stylesheet" href="/css/top-header.css">
+<div id="top-bar" class="fixed">
+
+  <a class="goto-top" href="#"></a>
+  <ul class="bar-list bar-list-1">
+    
+      <li>
+        <p>
+          <a href="/">
+            <text class="bar-text bar-p1">
+              首页
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          <a href="/about">
+            <text class="bar-text bar-p1">
+              关于
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+  </ul>
+</div>-->
+
+        <div id="content-outer">
+          <div class="content-inner">
+            <link rel="stylesheet" href="/css/post.css">
+<div class="posts">
+  <a href="/index.html"><i class="fa fa-home
+replay-btn" aria-hidden="true"></i></a>
+  <div class="post-title">
+    <p>
+      go学习笔记：方法
+    </p>
+    <hr>
+  </div>
+  <div class="post-content">
+    <h3 id="方法和函数"><a href="#方法和函数" class="headerlink" title="方法和函数"></a>方法和函数</h3><p>在函数声明时，在其名字前面就是一个方法。相当于为这个参数的类型定义了一个独占的方法。</p>
+<p>比如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> geometry</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="type">float64</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// traditional function</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Distance</span><span class="params">(p, q Point)</span></span> <span class="type">float64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// same thing, but as a method of the Point type</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span></span> Distance(q Point) <span class="type">float64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的p是方法的接收器，就和java里面的类的相似（？）</p>
+<p>在这里实现了 OOP 中的<strong>封装</strong></p>
+<h3 id="基于指针对象的方法"><a href="#基于指针对象的方法" class="headerlink" title="基于指针对象的方法"></a>基于指针对象的方法</h3><p>如果一个函数需要更新一个变量，或者其中一个参数过大时，我们会希望避免该变量被默认的拷贝</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Point)</span></span> ScaleBy(factor <span class="type">float64</span>) &#123;</span><br><span class="line">    p.X *= factor</span><br><span class="line">    p.Y *= factor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中这个函数的名字为<code>(*Point).ScaleBy</code>.这里的括号是必须的；没有括号的话可能会被理解为<code>*(Point.ScaleBy)</code> </p>
+<p><strong>在现实程序中，一般会约定如果Point类中有一个指针作为接收器的方法，那么所有Point的方法都必须有一个指针接收器，即使有些方法不需要</strong></p>
+<p>但是不用担心像C语言一样的麻烦，不管receiver是指针类型还是非指针类型，也不管你使用的是两者之一，编译器都会帮你搞定的(赞美编译器！)</p>
+<h2 id="通过嵌入结构体来拓展类型-实现继承"><a href="#通过嵌入结构体来拓展类型-实现继承" class="headerlink" title="通过嵌入结构体来拓展类型(实现继承)"></a>通过嵌入结构体来拓展类型(实现继承)</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;image/color&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="type">float64</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ColoredPoint <span class="keyword">struct</span> &#123;</span><br><span class="line">    Point</span><br><span class="line">    Color color.RGBA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的<code>Point</code>就实现了继承的功能</p>
+
+  </div>
+  
+</div>
+          </div>
+        </div>
+
+        <link rel="stylesheet" href="/css/footer.css">
+<div class="bottom-outer">
+  <div class="copyright">©2021 - 2021 By Tanger</div>
+  <div class="framework-info">
+    <span>Power by</span>
+    <a class="a1" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>Theme by</span>
+    <a class="a2" target="_blank" rel="noopener" href="https://github.com/redhat123456/hexo-theme-MiHoYo">MiHoYo</a>
+  </div>
+</div>
+
+          
+            <!-- scripts list from theme config.yml -->
+            
+              <script src="/js/MiHoYo.js"></script>
+              
+                
+
+  </body>
+
+  </html>

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-04-16T14:26:42.223Z</updated>
+  <updated>2024-05-07T07:42:47.039Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,103 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>go 面向对象编程的实现</title>
+    <link href="http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E5%BD%A2%E5%BC%8F/"/>
+    <id>http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/go%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E5%BD%A2%E5%BC%8F/</id>
+    <published>2024-05-07T07:41:20.062Z</published>
+    <updated>2024-05-07T07:42:47.039Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;封装&quot;&gt;&lt;a href=&quot;#封装&quot; class=&quot;headerlink&quot; title=&quot;封装&quot;&gt;&lt;/a&gt;封装&lt;/h2&gt;&lt;h2 id=&quot;继承&quot;&gt;&lt;a href=&quot;#继承&quot; class=&quot;headerlink&quot; title=&quot;继承&quot;&gt;&lt;/a&gt;继承&lt;/h2&gt;&lt;h2 id</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go学习笔记：方法</title>
+    <link href="http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%96%B9%E6%B3%95/"/>
+    <id>http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%96%B9%E6%B3%95/</id>
+    <published>2024-05-07T06:30:01.994Z</published>
+    <updated>2024-05-07T08:28:08.690Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="方法和函数"><a href="#方法和函数" class="headerlink" title="方法和函数"></a>方法和函数</h3><p>在函数声明时，在其名字前面就是一个方法。相当于为这个参数的类型定义了一个独占的方法。</p><p>比如</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> geometry</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="type">float64</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// traditional function</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Distance</span><span class="params">(p, q Point)</span></span> <span class="type">float64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// same thing, but as a method of the Point type</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span></span> Distance(q Point) <span class="type">float64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中的p是方法的接收器，就和java里面的类的相似（？）</p><p>在这里实现了 OOP 中的<strong>封装</strong></p><h3 id="基于指针对象的方法"><a href="#基于指针对象的方法" class="headerlink" title="基于指针对象的方法"></a>基于指针对象的方法</h3><p>如果一个函数需要更新一个变量，或者其中一个参数过大时，我们会希望避免该变量被默认的拷贝</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Point)</span></span> ScaleBy(factor <span class="type">float64</span>) &#123;</span><br><span class="line">    p.X *= factor</span><br><span class="line">    p.Y *= factor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中这个函数的名字为<code>(*Point).ScaleBy</code>.这里的括号是必须的；没有括号的话可能会被理解为<code>*(Point.ScaleBy)</code> </p><p><strong>在现实程序中，一般会约定如果Point类中有一个指针作为接收器的方法，那么所有Point的方法都必须有一个指针接收器，即使有些方法不需要</strong></p><p>但是不用担心像C语言一样的麻烦，不管receiver是指针类型还是非指针类型，也不管你使用的是两者之一，编译器都会帮你搞定的(赞美编译器！)</p><h2 id="通过嵌入结构体来拓展类型-实现继承"><a href="#通过嵌入结构体来拓展类型-实现继承" class="headerlink" title="通过嵌入结构体来拓展类型(实现继承)"></a>通过嵌入结构体来拓展类型(实现继承)</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;image/color&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="type">float64</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ColoredPoint <span class="keyword">struct</span> &#123;</span><br><span class="line">    Point</span><br><span class="line">    Color color.RGBA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中的<code>Point</code>就实现了继承的功能</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;方法和函数&quot;&gt;&lt;a href=&quot;#方法和函数&quot; class=&quot;headerlink&quot; title=&quot;方法和函数&quot;&gt;&lt;/a&gt;方法和函数&lt;/h3&gt;&lt;p&gt;在函数声明时，在其名字前面就是一个方法。相当于为这个参数的类型定义了一个独占的方法。&lt;/p&gt;
+&lt;p&gt;比如&lt;/p&gt;
+&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人月神话学习笔记：</title>
+    <link href="http://example.com/2024/04/25/Man-Month%20Mythical/%E4%BA%BA%E6%9C%88%E7%A5%9E%E8%AF%9D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A1/"/>
+    <id>http://example.com/2024/04/25/Man-Month%20Mythical/%E4%BA%BA%E6%9C%88%E7%A5%9E%E8%AF%9D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A1/</id>
+    <published>2024-04-25T02:35:00.354Z</published>
+    <updated>2024-04-27T03:18:03.886Z</updated>
+    
+    <content type="html"><![CDATA[<p>书本写作的起因： OS&#x2F;360的失败</p><p>对于软件开发的比喻：焦油坑</p><h3 id="编程系统产品"><a href="#编程系统产品" class="headerlink" title="编程系统产品"></a>编程系统产品</h3><p>产业化队伍和两人组合产出的差别</p><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>编程</td><td>编程系统<br>(接口，系统集成)</td></tr><tr><td>编程产品<br>（通用化，<br>    测试，<br>    文档,<br>     维护）</td><td>编程系统产品</td></tr></tbody></table><p>上面这个四宫格可以清晰的指出普通的程序和真正被现在的社会所需求的产品的区别</p><ul><li><strong>编程产品</strong>： 对用户来说需要考虑可复制性和兼容性，对维护人员来说需要考虑可理解性。这些需要的不只是程序本身，还需要大量的测试和文档，来保证其实现。<strong>成本比其中的程序至少高出3倍</strong></li><li><strong>编程系统</strong>： 需要将程序变成一个构建单元。其中要具有可拓展性和可实现性。必须考虑预先预定的资源限制。同时要考虑不能与其他一些构建单元所冲突，在高复杂度的情况下任然保持健壮。</li></ul><p>而将上述两者结合起来的<strong>编程系统产品</strong>，才是大多数时候，我们的目标</p><h3 id="作为劳动的乐趣"><a href="#作为劳动的乐趣" class="headerlink" title="作为劳动的乐趣"></a>作为劳动的乐趣</h3><blockquote><p>一种创建实物的乐趣</p></blockquote><ol><li>编程中<strong>劳动</strong>的乐趣</li><li>编程中<strong>为他人服务</strong>的乐趣</li><li>编程中<strong>体系建构</strong>的乐趣</li><li>编程中<strong>持续学习</strong>的乐趣</li><li>编程中<strong>容易实现</strong>的乐趣</li></ol><h3 id="作为职业的烦恼"><a href="#作为职业的烦恼" class="headerlink" title="作为职业的烦恼"></a>作为职业的烦恼</h3><ol><li>追求完美时的苦恼（这个也可以作为一种乐趣吧）</li><li>有他人参与的苦恼</li><li></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;书本写作的起因： OS&amp;#x2F;360的失败&lt;/p&gt;
+&lt;p&gt;对于软件开发的比喻：焦油坑&lt;/p&gt;
+&lt;h3 id=&quot;编程系统产品&quot;&gt;&lt;a href=&quot;#编程系统产品&quot; class=&quot;headerlink&quot; title=&quot;编程系统产品&quot;&gt;&lt;/a&gt;编程系统产品&lt;/h3&gt;&lt;p&gt;产业</summary>
+      
+    
+    
+    
+    
+    <category term="SE" scheme="http://example.com/tags/SE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>拉康研讨班阅读笔记：《Freud&#39;s Papers on Technique》</title>
+    <link href="http://example.com/2024/04/24/psychoanalysis/%E7%AC%AC%E4%B8%80%E6%9C%9F/"/>
+    <id>http://example.com/2024/04/24/psychoanalysis/%E7%AC%AC%E4%B8%80%E6%9C%9F/</id>
+    <published>2024-04-24T12:44:43.228Z</published>
+    <updated>2024-04-24T13:10:38.727Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="对经典精神分析术语的解析"><a href="#对经典精神分析术语的解析" class="headerlink" title="对经典精神分析术语的解析"></a>对经典精神分析术语的解析</h3><ol><li>超我： 一个失去意义的法则，只能通过语言来维系自身</li><li>自我理想： 自我建立的防御有机体， 目的是延长主体的满足</li><li>本我： 不可还原为主题的驱力。不会以定量的攻击性或爱欲性为结果(不同于心理学)</li></ol><h3 id="重要问题"><a href="#重要问题" class="headerlink" title="重要问题"></a>重要问题</h3><p><strong>当我们做精神分析时，我们在做什么</strong></p><p>我们要研讨精神分析技术的所说、所写和所做</p><p>先在有大量的精神分析师沉溺于对比最极端的<strong>概念的游戏</strong></p><p>曾有人认为精神分析是某种双体心理学(two-body psychology)，但是精神分析并不应当只囿于处理两个人之间的关系</p><blockquote><p>主体历史的完全重构是对分析进程的基本、构成性的和结构性的要素</p></blockquote><p>对于案例的分析，有趣之点在与个案的独一性</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;对经典精神分析术语的解析&quot;&gt;&lt;a href=&quot;#对经典精神分析术语的解析&quot; class=&quot;headerlink&quot; title=&quot;对经典精神分析术语的解析&quot;&gt;&lt;/a&gt;对经典精神分析术语的解析&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;超我： 一个失去意义的法则，只能通过语言来维系自</summary>
+      
+    
+    
+    
+    
+    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>拉康研讨班阅读笔记：《The Object Relation》</title>
@@ -33,8 +130,8 @@
   
   <entry>
     <title>go学习笔记：Recover捕获异常</title>
-    <link href="http://example.com/2024/04/16/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/"/>
-    <id>http://example.com/2024/04/16/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/</id>
+    <link href="http://example.com/2024/04/16/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/"/>
+    <id>http://example.com/2024/04/16/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Recover%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8/</id>
     <published>2024-04-16T08:44:50.398Z</published>
     <updated>2024-04-17T07:17:20.957Z</updated>
     
@@ -83,8 +180,8 @@
   
   <entry>
     <title>go学习笔记：Panic异常</title>
-    <link href="http://example.com/2024/04/11/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/"/>
-    <id>http://example.com/2024/04/11/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/</id>
+    <link href="http://example.com/2024/04/11/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/"/>
+    <id>http://example.com/2024/04/11/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%20Panic%E5%BC%82%E5%B8%B8/</id>
     <published>2024-04-11T07:41:03.208Z</published>
     <updated>2024-04-16T08:44:43.171Z</updated>
     
@@ -107,8 +204,8 @@
   
   <entry>
     <title>go学习笔记：Deferred函数</title>
-    <link href="http://example.com/2024/04/09/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADeferred%E5%87%BD%E6%95%B0/"/>
-    <id>http://example.com/2024/04/09/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADeferred%E5%87%BD%E6%95%B0/</id>
+    <link href="http://example.com/2024/04/09/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADeferred%E5%87%BD%E6%95%B0/"/>
+    <id>http://example.com/2024/04/09/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADeferred%E5%87%BD%E6%95%B0/</id>
     <published>2024-04-09T07:53:51.143Z</published>
     <updated>2024-04-09T08:32:11.738Z</updated>
     
@@ -131,8 +228,8 @@
   
   <entry>
     <title>go学习笔记：可变参数</title>
-    <link href="http://example.com/2024/04/09/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/"/>
-    <id>http://example.com/2024/04/09/It&#39;s%20mygo/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</id>
+    <link href="http://example.com/2024/04/09/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/"/>
+    <id>http://example.com/2024/04/09/It&#39;s%20mygo!!!!!/go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</id>
     <published>2024-04-09T07:25:13.802Z</published>
     <updated>2024-04-09T07:54:58.803Z</updated>
     
