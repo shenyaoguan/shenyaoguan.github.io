@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-07T07:42:47.039Z</updated>
+  <updated>2024-05-09T13:04:14.160Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gin学习笔记：分组与中间件的组合</title>
+    <link href="http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/gin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E7%BB%84%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E7%BB%84%E5%90%88/"/>
+    <id>http://example.com/2024/05/07/It&#39;s%20mygo!!!!!/gin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E7%BB%84%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E7%BB%84%E5%90%88/</id>
+    <published>2024-05-07T10:44:17.883Z</published>
+    <updated>2024-05-09T13:04:14.160Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天听了一下gin的分组的功能，挺有趣的，记一下</p><h3 id="gin的路由分组功能"><a href="#gin的路由分组功能" class="headerlink" title="gin的路由分组功能"></a>gin的路由分组功能</h3><p>gin中可以对路由进行分组，以便进行一些处理</p><p>比如下面这样</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r := gin.Default()  </span><br><span class="line">v1 := r.Group(<span class="string">&quot;v1&quot;</span>)</span><br></pre></td></tr></table></figure><p>这里就分了一个叫做<code>v1</code>的分组</p><p>这样的分组就有利于我们在使用中间件的时候使用</p><p>这里的分组像一种范畴，这个便于我们对一系列有相似特性的路由进行统一处理。某种意义上也算代码重用的一环</p><h3 id="中间件的使用"><a href="#中间件的使用" class="headerlink" title="中间件的使用"></a>中间件的使用</h3><p>中间件的使用遵循洋葱模型</p><p><img src="https://pic2.zhimg.com/80/v2-c714203a7695b9136a48ab50b217423d_720w.webp" alt="洋葱模型"></p><p>举个例子，比如以下使用中间件</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middel</span><span class="params">()</span></span> gin.HandlerFunc &#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;  </span><br><span class="line">       fmt.Println(<span class="string">&quot;before&quot;</span>)  </span><br><span class="line">       c.Next()  </span><br><span class="line">       fmt.Println(<span class="string">&quot;after&quot;</span>)  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middeltwo</span><span class="params">()</span></span> gin.HandlerFunc &#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;  </span><br><span class="line">       fmt.Println(<span class="string">&quot;before,2&quot;</span>)  </span><br><span class="line">       c.Next()  </span><br><span class="line">       fmt.Println(<span class="string">&quot;after,2&quot;</span>)  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//……</span></span><br><span class="line">v1 := r.Group(<span class="string">&quot;v1&quot;</span>).Use(middel(), middeltwo())</span><br><span class="line">v1.GET(<span class="string">&quot;test&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;  </span><br><span class="line">    fmt.Println(<span class="string">&quot;分了个组&quot;</span>)  </span><br><span class="line">    c.JSON(<span class="number">200</span>, gin.H&#123;  </span><br><span class="line">       <span class="string">&quot;message&quot;</span>: <span class="string">&quot;test&quot;</span>,  </span><br><span class="line">       <span class="string">&quot;success&quot;</span>: <span class="string">&quot;true&quot;</span>,  </span><br><span class="line">    &#125;)  </span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如此使用中间件，得到的结果是</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">before</span><br><span class="line">before,2</span><br><span class="line">分了个组</span><br><span class="line">after,2</span><br><span class="line">after</span><br></pre></td></tr></table></figure><p>就像一个洋葱一样，后进先出。</p><p>因此，这里的实现很有可能就是利用了语言自身的函数<strong>堆栈模型</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天听了一下gin的分组的功能，挺有趣的，记一下&lt;/p&gt;
+&lt;h3 id=&quot;gin的路由分组功能&quot;&gt;&lt;a href=&quot;#gin的路由分组功能&quot; class=&quot;headerlink&quot; title=&quot;gin的路由分组功能&quot;&gt;&lt;/a&gt;gin的路由分组功能&lt;/h3&gt;&lt;p&gt;gin中可以</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="gin" scheme="http://example.com/tags/gin/"/>
+    
+  </entry>
   
   <entry>
     <title>go 面向对象编程的实现</title>
