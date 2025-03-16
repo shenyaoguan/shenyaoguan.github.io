@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-09T13:04:14.160Z</updated>
+  <updated>2025-03-14T13:03:12.383Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,102 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>eBPF——eBPF基础操作</title>
+    <link href="http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2025-03-14T11:40:00.536Z</published>
+    <updated>2025-03-14T13:03:12.383Z</updated>
+    
+    
+    
+    
+    
+    <category term="eBPF" scheme="http://example.com/tags/eBPF/"/>
+    
+    <category term="os" scheme="http://example.com/tags/os/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>eBPF_TODO</title>
+    <link href="http://example.com/2025/03/14/eBPF/eBPF_%20TODO/"/>
+    <id>http://example.com/2025/03/14/eBPF/eBPF_%20TODO/</id>
+    <published>2025-03-14T11:15:02.846Z</published>
+    <updated>2025-03-14T13:02:27.183Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><input disabled="" type="checkbox"> 完成《eBPF前置课程 —— eBPF简介与历史》</li><li><input disabled="" type="checkbox"> 完成《eBPF——eBPF基础操作》</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&gt; 完成《eBPF前置课程 —— eBPF简介与历史》&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&gt; 完成《eBPF——eBPF基础操作》&lt;/li&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="eBPF" scheme="http://example.com/tags/eBPF/"/>
+    
+    <category term="TODO" scheme="http://example.com/tags/TODO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>eBPF前置课程 —— eBPF简介与历史</title>
+    <link href="http://example.com/2025/03/14/eBPF/eBPF%E5%89%8D%E7%BD%AE%E8%AF%BE%E7%A8%8B%20%E2%80%94%E2%80%94%20eBPF%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%8E%86%E5%8F%B2/"/>
+    <id>http://example.com/2025/03/14/eBPF/eBPF%E5%89%8D%E7%BD%AE%E8%AF%BE%E7%A8%8B%20%E2%80%94%E2%80%94%20eBPF%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%8E%86%E5%8F%B2/</id>
+    <published>2025-03-14T10:26:11.782Z</published>
+    <updated>2025-03-14T11:14:58.240Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="eBPF的前身——BPF"><a href="#eBPF的前身——BPF" class="headerlink" title="eBPF的前身——BPF"></a>eBPF的前身——BPF</h3><p>在学习eBPF之前，按照惯例首先介绍以下BPF(The BSD Packet Filter).</p><p>BPF是一种适合用于Unix系统的用户级别包捕获机制，在Linux 5.10中加入了Linux内核，并已经透明的转化为eBPF</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;eBPF的前身——BPF&quot;&gt;&lt;a href=&quot;#eBPF的前身——BPF&quot; class=&quot;headerlink&quot; title=&quot;eBPF的前身——BPF&quot;&gt;&lt;/a&gt;eBPF的前身——BPF&lt;/h3&gt;&lt;p&gt;在学习eBPF之前，按照惯例首先介绍以下BPF(The BS</summary>
+      
+    
+    
+    
+    
+    <category term="eBPF" scheme="http://example.com/tags/eBPF/"/>
+    
+    <category term="BPF" scheme="http://example.com/tags/BPF/"/>
+    
+    <category term="os" scheme="http://example.com/tags/os/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mapreduce 学习笔记——对于master与worker之间的关系的思考</title>
+    <link href="http://example.com/2024/09/21/disturbed%20system/Mapreduce%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%AF%B9%E4%BA%8Emaster%E4%B8%8Eworker%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E7%9A%84%E6%80%9D%E8%80%83/"/>
+    <id>http://example.com/2024/09/21/disturbed%20system/Mapreduce%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%AF%B9%E4%BA%8Emaster%E4%B8%8Eworker%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E7%9A%84%E6%80%9D%E8%80%83/</id>
+    <published>2024-09-21T08:30:07.296Z</published>
+    <updated>2024-09-21T08:39:03.630Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="关于master与worker的关系"><a href="#关于master与worker的关系" class="headerlink" title="关于master与worker的关系"></a>关于master与worker的关系</h3><p>在实现MIT的分布式课程实验中，我发现阻碍我实现MapReduce系统的问题主要在于对于master与worker之间的关系没有非常清楚。这片文章的目标就是尝试弄清楚两者之间的关系。</p><h3 id="从master说起"><a href="#从master说起" class="headerlink" title="从master说起"></a>从master说起</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;关于master与worker的关系&quot;&gt;&lt;a href=&quot;#关于master与worker的关系&quot; class=&quot;headerlink&quot; title=&quot;关于master与worker的关系&quot;&gt;&lt;/a&gt;关于master与worker的关系&lt;/h3&gt;&lt;p&gt;在实现MIT</summary>
+      
+    
+    
+    
+    
+    <category term="分布式系统" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="MIT_6824" scheme="http://example.com/tags/MIT-6824/"/>
+    
+    <category term="Lab1" scheme="http://example.com/tags/Lab1/"/>
+    
+  </entry>
   
   <entry>
     <title>gin学习笔记：分组与中间件的组合</title>
@@ -35,12 +131,6 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="gin" scheme="http://example.com/tags/gin/"/>
-    
   </entry>
   
   <entry>
@@ -60,10 +150,6 @@
     
     
     
-    
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -87,10 +173,6 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
   </entry>
   
   <entry>
@@ -113,8 +195,6 @@
     
     
     
-    <category term="SE" scheme="http://example.com/tags/SE/"/>
-    
   </entry>
   
   <entry>
@@ -136,8 +216,6 @@
     
     
     
-    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
-    
   </entry>
   
   <entry>
@@ -150,8 +228,6 @@
     
     
     
-    
-    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
@@ -173,10 +249,6 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
   </entry>
   
   <entry>
@@ -196,12 +268,6 @@
     
     
     
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="shell" scheme="http://example.com/tags/shell/"/>
-    
-    <category term="os" scheme="http://example.com/tags/os/"/>
     
   </entry>
   
@@ -223,10 +289,6 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
   </entry>
   
   <entry>
@@ -246,10 +308,6 @@
     
     
     
-    
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
-    
-    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
