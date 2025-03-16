@@ -1,0 +1,138 @@
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content=大家好我是shenyaoguan,欢迎来到我的博客 >
+  <meta name="keywords" content=hexo,theme,MiHoYo >
+
+  <head>
+    <title>
+      eBPF——eBPF基础操作 [ Hexo ]
+    </title>
+  <meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+  <body>
+
+    <link rel="stylesheet" href="/css/header.css">
+<div class="header">
+  <div class="logo">
+    <span class="pull-left">
+      <a id="site-name" href="/">
+        shenyaoguan&#39;s blog
+      </a>
+    </span>
+  </div>
+  <ul class="nav-list">
+    
+      <li>
+        <a href="/">
+          首页
+        </a>
+      </li>
+      
+      <li>
+        <a href="/about">
+          关于
+        </a>
+      </li>
+      
+  </ul>
+</div>
+
+      <!--<link rel="stylesheet" href="/css/top-header.css">
+<div id="top-bar" class="fixed">
+
+  <a class="goto-top" href="#"></a>
+  <ul class="bar-list bar-list-1">
+    
+      <li>
+        <p>
+          <a href="/">
+            <text class="bar-text bar-p1">
+              首页
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          <a href="/about">
+            <text class="bar-text bar-p1">
+              关于
+            </text>
+            <text class="bar-text bar-p2"></text>
+          </a>
+          <text class="bar-p3">/</text>
+        </p>
+      </li>
+      
+  </ul>
+</div>-->
+
+        <div id="content-outer">
+          <div class="content-inner">
+            <link rel="stylesheet" href="/css/post.css">
+<div class="posts">
+  <a href="/index.html"><i class="fa fa-home
+replay-btn" aria-hidden="true"></i></a>
+  <div class="post-title">
+    <p>
+      eBPF——eBPF基础操作
+    </p>
+    <hr>
+  </div>
+  <div class="post-content">
+    <h3 id="“Hello-World”"><a href="#“Hello-World”" class="headerlink" title="“Hello World”"></a>“Hello World”</h3><p>下面是一段bcc程序，我们先从解析这段程序开始</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3  </span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"></span><br><span class="line"><span class="comment">#其中的嵌入的eBPF程序</span></span><br><span class="line">program = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">int hello(void *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;Hello World!&quot;);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">b = BPF(text=program)</span><br><span class="line">syscall = b.get_syscall_fnname(<span class="string">&quot;execve&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=syscall, fn_name=<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line">b.trace_print()</span><br></pre></td></tr></table></figure>
+
+<p>其中的<code>program</code>中存储的将在内核中执行的ePBF程序，在调用时，打印<code>Hello World!</code></p>
+<p>而下面的执行，我们关注<code>syscall</code>变量，这个变量说明了我们是要在执行<code>execve</code> 这个系统调用时，执行我们的eBPF代码。</p>
+<p>而其实际效果如下</p>
+<p>![[Pasted image 20250316220325.png]]</p>
+<p>即在调用<code>execve()</code>时，我们看到了打印的<code>Hello World!</code></p>
+<h3 id="eBPF表"><a href="#eBPF表" class="headerlink" title="eBPF表"></a>eBPF表</h3><p>在上面我们完成了一个基本的操作，接下来我们要介绍eBPF应用中最重要的一个方法——eBPF表。</p>
+<p>这个方法允许我们生成表，以此方便我们进行操作，让我们以下面的代码为例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3  </span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">program = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BPF_HASH(counter_table);        //建表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int hello(void *ctx) &#123;</span></span><br><span class="line"><span class="string">   u64 uid;</span></span><br><span class="line"><span class="string">   u64 counter = 0;</span></span><br><span class="line"><span class="string">   u64 *p;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   uid = bpf_get_current_uid_gid() &amp; 0xFFFFFFFF; //最后四字节才为uid</span></span><br><span class="line"><span class="string">   p = counter_table.lookup(&amp;uid);</span></span><br><span class="line"><span class="string">   if (p != 0) &#123;                                 //显示判定非null值，防止出错</span></span><br><span class="line"><span class="string">      counter = *p;</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string">   counter++;</span></span><br><span class="line"><span class="string">   counter_table.update(&amp;uid, &amp;counter);</span></span><br><span class="line"><span class="string">   return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">b = BPF(text=program)</span><br><span class="line">syscall = b.get_syscall_fnname(<span class="string">&quot;execve&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=syscall, fn_name=<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Attach to a tracepoint that gets hit for all syscalls </span></span><br><span class="line"><span class="comment"># b.attach_raw_tracepoint(tp=&quot;sys_enter&quot;, fn_name=&quot;hello&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br><span class="line">    s = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> b[<span class="string">&quot;counter_table&quot;</span>].items():</span><br><span class="line">        s += <span class="string">f&quot;ID <span class="subst">&#123;k.value&#125;</span>: <span class="subst">&#123;v.value&#125;</span>\t&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+
+<p>让我们关注 <code>BPF_HASH(counter_table);</code> ， 这一个宏定义就是创建了一个哈希表</p>
+<p>在获取uid时，我们将<code>bpf_get_current_uid_gid()</code>函数的返回值取后4个字节，这是为了将储存在后四个字节的uid与前面的gid分离。</p>
+<p>接下来的变量<code>p</code>是为了查看表中是否有相对应uid值的键，以保障<code>counter</code>取值时不会去到NULL值导致报错。</p>
+<p>执行后情况如下</p>
+<p>![[Pasted image 20250316223411.png]]</p>
+
+  </div>
+  
+</div>
+          </div>
+        </div>
+
+        <link rel="stylesheet" href="/css/footer.css">
+<div class="bottom-outer">
+  <div class="copyright">©2021 - 2021 By Tanger</div>
+  <div class="framework-info">
+    <span>Power by</span>
+    <a class="a1" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    <span class="footer-separator">|</span>
+    <span>Theme by</span>
+    <a class="a2" target="_blank" rel="noopener" href="https://github.com/redhat123456/hexo-theme-MiHoYo">MiHoYo</a>
+  </div>
+</div>
+
+          
+            <!-- scripts list from theme config.yml -->
+            
+              <script src="/js/MiHoYo.js"></script>
+              
+                
+
+  </body>
+
+  </html>

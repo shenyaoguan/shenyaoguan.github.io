@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-03-14T13:03:12.383Z</updated>
+  <updated>2025-03-16T14:36:26.194Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -18,11 +18,18 @@
   
   <entry>
     <title>eBPF——eBPF基础操作</title>
-    <link href="http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <link href="http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%85%A5%E9%97%A8/"/>
+    <id>http://example.com/2025/03/14/eBPF/eBPF%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94eBPF%E5%85%A5%E9%97%A8/</id>
     <published>2025-03-14T11:40:00.536Z</published>
-    <updated>2025-03-14T13:03:12.383Z</updated>
+    <updated>2025-03-16T14:36:26.194Z</updated>
     
+    <content type="html"><![CDATA[<h3 id="“Hello-World”"><a href="#“Hello-World”" class="headerlink" title="“Hello World”"></a>“Hello World”</h3><p>下面是一段bcc程序，我们先从解析这段程序开始</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3  </span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"></span><br><span class="line"><span class="comment">#其中的嵌入的eBPF程序</span></span><br><span class="line">program = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">int hello(void *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;Hello World!&quot;);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">b = BPF(text=program)</span><br><span class="line">syscall = b.get_syscall_fnname(<span class="string">&quot;execve&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=syscall, fn_name=<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line">b.trace_print()</span><br></pre></td></tr></table></figure><p>其中的<code>program</code>中存储的将在内核中执行的ePBF程序，在调用时，打印<code>Hello World!</code></p><p>而下面的执行，我们关注<code>syscall</code>变量，这个变量说明了我们是要在执行<code>execve</code> 这个系统调用时，执行我们的eBPF代码。</p><p>而其实际效果如下</p><p>![[Pasted image 20250316220325.png]]</p><p>即在调用<code>execve()</code>时，我们看到了打印的<code>Hello World!</code></p><h3 id="eBPF表"><a href="#eBPF表" class="headerlink" title="eBPF表"></a>eBPF表</h3><p>在上面我们完成了一个基本的操作，接下来我们要介绍eBPF应用中最重要的一个方法——eBPF表。</p><p>这个方法允许我们生成表，以此方便我们进行操作，让我们以下面的代码为例子</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3  </span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">program = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BPF_HASH(counter_table);        //建表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int hello(void *ctx) &#123;</span></span><br><span class="line"><span class="string">   u64 uid;</span></span><br><span class="line"><span class="string">   u64 counter = 0;</span></span><br><span class="line"><span class="string">   u64 *p;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   uid = bpf_get_current_uid_gid() &amp; 0xFFFFFFFF; //最后四字节才为uid</span></span><br><span class="line"><span class="string">   p = counter_table.lookup(&amp;uid);</span></span><br><span class="line"><span class="string">   if (p != 0) &#123;                                 //显示判定非null值，防止出错</span></span><br><span class="line"><span class="string">      counter = *p;</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string">   counter++;</span></span><br><span class="line"><span class="string">   counter_table.update(&amp;uid, &amp;counter);</span></span><br><span class="line"><span class="string">   return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">b = BPF(text=program)</span><br><span class="line">syscall = b.get_syscall_fnname(<span class="string">&quot;execve&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=syscall, fn_name=<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Attach to a tracepoint that gets hit for all syscalls </span></span><br><span class="line"><span class="comment"># b.attach_raw_tracepoint(tp=&quot;sys_enter&quot;, fn_name=&quot;hello&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br><span class="line">    s = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> b[<span class="string">&quot;counter_table&quot;</span>].items():</span><br><span class="line">        s += <span class="string">f&quot;ID <span class="subst">&#123;k.value&#125;</span>: <span class="subst">&#123;v.value&#125;</span>\t&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure><p>让我们关注 <code>BPF_HASH(counter_table);</code> ， 这一个宏定义就是创建了一个哈希表</p><p>在获取uid时，我们将<code>bpf_get_current_uid_gid()</code>函数的返回值取后4个字节，这是为了将储存在后四个字节的uid与前面的gid分离。</p><p>接下来的变量<code>p</code>是为了查看表中是否有相对应uid值的键，以保障<code>counter</code>取值时不会去到NULL值导致报错。</p><p>执行后情况如下</p><p>![[Pasted image 20250316223411.png]]</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;“Hello-World”&quot;&gt;&lt;a href=&quot;#“Hello-World”&quot; class=&quot;headerlink&quot; title=&quot;“Hello World”&quot;&gt;&lt;/a&gt;“Hello World”&lt;/h3&gt;&lt;p&gt;下面是一段bcc程序，我们先从解析这段程序开始&lt;/p</summary>
+      
     
     
     
@@ -131,6 +138,12 @@
     
     
     
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="gin" scheme="http://example.com/tags/gin/"/>
+    
   </entry>
   
   <entry>
@@ -150,6 +163,10 @@
     
     
     
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -173,6 +190,10 @@
     
     
     
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
   </entry>
   
   <entry>
@@ -195,6 +216,8 @@
     
     
     
+    <category term="SE" scheme="http://example.com/tags/SE/"/>
+    
   </entry>
   
   <entry>
@@ -216,6 +239,8 @@
     
     
     
+    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
+    
   </entry>
   
   <entry>
@@ -228,6 +253,8 @@
     
     
     
+    
+    <category term="精神分析" scheme="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
@@ -249,6 +276,10 @@
     
     
     
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
   </entry>
   
   <entry>
@@ -268,6 +299,12 @@
     
     
     
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="os" scheme="http://example.com/tags/os/"/>
+    
+    <category term="shell" scheme="http://example.com/tags/shell/"/>
     
   </entry>
   
@@ -289,6 +326,10 @@
     
     
     
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
   </entry>
   
   <entry>
@@ -308,6 +349,10 @@
     
     
     
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+    <category term="编程学习" scheme="http://example.com/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
