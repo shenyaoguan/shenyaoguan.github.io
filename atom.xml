@@ -87,9 +87,9 @@
     
     <category term="eBPF" scheme="http://example.com/tags/eBPF/"/>
     
-    <category term="BPF" scheme="http://example.com/tags/BPF/"/>
-    
     <category term="os" scheme="http://example.com/tags/os/"/>
+    
+    <category term="BPF" scheme="http://example.com/tags/BPF/"/>
     
   </entry>
   
