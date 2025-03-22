@@ -96,7 +96,7 @@ replay-btn" aria-hidden="true"></i></a>
 <p>其中的<code>program</code>中存储的将在内核中执行的ePBF程序，在调用时，打印<code>Hello World!</code></p>
 <p>而下面的执行，我们关注<code>syscall</code>变量，这个变量说明了我们是要在执行<code>execve</code> 这个系统调用时，执行我们的eBPF代码。</p>
 <p>而其实际效果如下</p>
-<p>![[Pasted image 20250316220325.png]]</p>
+<p><img src="/./Pasted%20image%2020250316220325.png" alt="Pasted image 20250316220325.png"></p>
 <p>即在调用<code>execve()</code>时，我们看到了打印的<code>Hello World!</code></p>
 <h3 id="eBPF表"><a href="#eBPF表" class="headerlink" title="eBPF表"></a>eBPF表</h3><p>在上面我们完成了一个基本的操作，接下来我们要介绍eBPF应用中最重要的一个方法——eBPF表。</p>
 <p>这个方法允许我们生成表，以此方便我们进行操作，让我们以下面的代码为例子</p>
@@ -106,7 +106,22 @@ replay-btn" aria-hidden="true"></i></a>
 <p>在获取uid时，我们将<code>bpf_get_current_uid_gid()</code>函数的返回值取后4个字节，这是为了将储存在后四个字节的uid与前面的gid分离。</p>
 <p>接下来的变量<code>p</code>是为了查看表中是否有相对应uid值的键，以保障<code>counter</code>取值时不会去到NULL值导致报错。</p>
 <p>执行后情况如下</p>
-<p>![[Pasted image 20250316223411.png]]</p>
+<p><img src="/./Pasted%20image%2020250316223411.png" alt="[Pasted image 20250316223411.png]"></p>
+<h3 id="eBPF-字节码"><a href="#eBPF-字节码" class="headerlink" title="eBPF 字节码"></a>eBPF 字节码</h3><p>我们是用以下命令去查看字节码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bpftool prog dump xlated name hello</span><br></pre></td></tr></table></figure>
+
+<p>得到以下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int hello(void * ctx):</span><br><span class="line">; int hello(void *ctx) &#123;</span><br><span class="line">   0: (b7) r1 = 560229490</span><br><span class="line">; (&#123; char _fmt[] = &quot;Hello World!&quot;; bpf_trace_printk_(_fmt, sizeof(_fmt)); &#125;);</span><br><span class="line">   1: (63) *(u32 *)(r10 -8) = r1</span><br><span class="line">   2: (18) r1 = 0x6f57206f6c6c6548</span><br><span class="line">   4: (7b) *(u64 *)(r10 -16) = r1</span><br><span class="line">   5: (b7) r1 = 0</span><br><span class="line">   6: (73) *(u8 *)(r10 -4) = r1</span><br><span class="line">   7: (bf) r1 = r10</span><br><span class="line">; </span><br><span class="line">   8: (07) r1 += -16</span><br><span class="line">; (&#123; char _fmt[] = &quot;Hello World!&quot;; bpf_trace_printk_(_fmt, sizeof(_fmt)); &#125;);</span><br><span class="line">   9: (b7) r2 = 13</span><br><span class="line">  10: (85) call bpf_trace_printk#-108704</span><br><span class="line">; return 0;</span><br><span class="line">  11: (b7) r0 = 0</span><br><span class="line">  12: (95) exit</span><br></pre></td></tr></table></figure>
+
+<p>让我们分析这段代码</p>
+<p>首先是第一段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0: (b7) r1 = 560229490</span><br></pre></td></tr></table></figure>
+
+<p>这段代码是一个索引，显示的是该指令在内存中从程序开始的偏移量。</p>
+<p><code>b7</code> 是指令代码，意思是<code>dst = src</code></p>
+<p>其中<code>dst</code>在这里显然是寄存器1(r1), <code>src</code>是一个值(560229490)，这里是一一对应的。</p>
+<p>对于指令代码的意义我们可以在这个非官方文档中找到</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/iovisor/bpf-docs/blob/master/eBPF.md">eBPF非官方文档</a></p>
 
   </div>
   
