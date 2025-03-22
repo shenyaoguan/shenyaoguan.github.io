@@ -96,7 +96,7 @@ replay-btn" aria-hidden="true"></i></a>
 <p>其中的<code>program</code>中存储的将在内核中执行的ePBF程序，在调用时，打印<code>Hello World!</code></p>
 <p>而下面的执行，我们关注<code>syscall</code>变量，这个变量说明了我们是要在执行<code>execve</code> 这个系统调用时，执行我们的eBPF代码。</p>
 <p>而其实际效果如下</p>
-<p><img src="/./Pasted%20image%2020250316220325.png" alt="Pasted image 20250316220325.png"></p>
+<p><img src="/./image/Pasted%20image%2020250316220325.png" alt="Pasted image 20250316220325.png"></p>
 <p>即在调用<code>execve()</code>时，我们看到了打印的<code>Hello World!</code></p>
 <h3 id="eBPF表"><a href="#eBPF表" class="headerlink" title="eBPF表"></a>eBPF表</h3><p>在上面我们完成了一个基本的操作，接下来我们要介绍eBPF应用中最重要的一个方法——eBPF表。</p>
 <p>这个方法允许我们生成表，以此方便我们进行操作，让我们以下面的代码为例子</p>
@@ -106,7 +106,7 @@ replay-btn" aria-hidden="true"></i></a>
 <p>在获取uid时，我们将<code>bpf_get_current_uid_gid()</code>函数的返回值取后4个字节，这是为了将储存在后四个字节的uid与前面的gid分离。</p>
 <p>接下来的变量<code>p</code>是为了查看表中是否有相对应uid值的键，以保障<code>counter</code>取值时不会去到NULL值导致报错。</p>
 <p>执行后情况如下</p>
-<p><img src="/./Pasted%20image%2020250316223411.png" alt="[Pasted image 20250316223411.png]"></p>
+<p><img src="/./image/Pasted%20image%2020250316223411.png" alt="[Pasted image 20250316223411.png]"></p>
 <h3 id="eBPF-字节码"><a href="#eBPF-字节码" class="headerlink" title="eBPF 字节码"></a>eBPF 字节码</h3><p>我们是用以下命令去查看字节码</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bpftool prog dump xlated name hello</span><br></pre></td></tr></table></figure>
 
